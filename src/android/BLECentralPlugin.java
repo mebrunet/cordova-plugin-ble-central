@@ -527,37 +527,44 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
     }
 
     private void getConnectedDevices(CallbackContext callbackContext) {
-        JSONObject map = new JSONObject();
-
+        
         int[] flagConnected = {2};
         JSONArray connected = new JSONArray();
         for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagConnected)) {
             connected.put(device.toString());
         }
-        map.put("connected", connected);
 
         int[] flagConnecting = {1};
         JSONArray connecting = new JSONArray();
         for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagConnecting)) {
             connecting.put(device.toString());
         }
-        map.put("connecting", connecting);
 
         int[] flagDisconnected = {0};
         JSONArray disconnected = new JSONArray();
         for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagDisconnected)) {
             disconnected.put(device.toString());
         }
-        map.put("disconnected", disconnected);
 
         int[] flagDisconnecting = {3};
         JSONArray disconnecting = new JSONArray();
         for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagDisconnecting)) {
             disconnecting.put(device.toString());
         }
-        map.put("disconnecting", disconnected);
+        
+        PluginResult result;
+        JSONObject map = new JSONObject();
+        try {
+            map.put("disconnecting", disconnected);
+            map.put("disconnected", disconnected);
+            map.put("connecting", connecting);
+            map.put("connected", connected); 
+            result = new PluginResult(PluginResult.Status.OK, map);
 
-        PluginResult result = new PluginResult(PluginResult.Status.OK, map);
+        } catch (JSONException e) {
+            result = new PluginResult(PluginResult.Status.ERROR, e.toString());
+        }
+
         callbackContext.sendPluginResult(result);
     }
 
