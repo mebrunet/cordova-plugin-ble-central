@@ -71,6 +71,8 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
     private static final String START_STATE_NOTIFICATIONS = "startStateNotifications";
     private static final String STOP_STATE_NOTIFICATIONS = "stopStateNotifications";
 
+    private static final String GET_CONNECTED_DEVICES = "getConnectedDevices";
+
     // callbacks
     CallbackContext discoverCallback;
     private CallbackContext enableBluetoothCallback;
@@ -154,6 +156,10 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         } else if (action.equals(LIST)) {
 
             listKnownDevices(callbackContext);
+        
+        } else if (action.equals(GET_CONNECTED_DEVICES)) {
+            
+            getConnectedDevices(callbackContext);
 
         } else if (action.equals(CONNECT)) {
 
@@ -515,6 +521,16 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
             json.put(peripheral.asJSONObject());
         }
 
+        PluginResult result = new PluginResult(PluginResult.Status.OK, json);
+        callbackContext.sendPluginResult(result);
+    }
+
+    private void getConnectedDevices(CallbackContext callbackContext) {
+        JSONArray json = new JSONArray();
+        List<BluetoothDevice> devices = BluetoothManager.getConnectedDevices();
+        for (BluetoothDevice device : devices) {
+            json.put(device.toString());
+        }
         PluginResult result = new PluginResult(PluginResult.Status.OK, json);
         callbackContext.sendPluginResult(result);
     }

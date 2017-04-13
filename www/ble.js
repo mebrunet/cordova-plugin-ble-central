@@ -83,6 +83,10 @@ module.exports = {
         cordova.exec(success, failure, 'BLE', 'list', []);
     },
 
+    getConnectedDevices: function(success, failure) {
+        cordova.exec(success, failure, 'BLE', 'getConnectedDevices', []);
+    },
+
     connect: function (device_id, success, failure) {
         var successWrapper = function(peripheral) {
             convertToNativeJS(peripheral);
@@ -159,7 +163,7 @@ module.exports = {
 
     stopStateNotifications: function (success, failure) {
         cordova.exec(success, failure, "BLE", "stopStateNotifications", []);
-    }
+    },
 
 };
 
@@ -242,4 +246,5 @@ module.exports.withPromises = {
             module.exports.readRSSI(device_id);
         });
     }
+
 }
