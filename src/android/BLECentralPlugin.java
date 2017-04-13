@@ -526,7 +526,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         callbackContext.sendPluginResult(result);
     }
 
-    private void getConnectedDevices(CallbackContext callbackContext, BluetoothManager bluetoothManager) {
+    private void getConnectedDevices(CallbackContext callbackContext) {
         JSONArray json = new JSONArray();
         List<BluetoothDevice> devices = bluetoothManager.getConnectedDevices(7);
         for (BluetoothDevice device : devices) {
