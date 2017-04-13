@@ -529,26 +529,30 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
     private void getConnectedDevices(CallbackContext callbackContext) {
         JSONObject map = new JSONObject();
 
+        int[] flagConnected = {2};
         JSONArray connected = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {2})) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagConnected)) {
             connected.put(device.toString());
         }
         map.put("connected", connected);
 
+        int[] flagConnecting = {1};
         JSONArray connecting = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {1})) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagConnecting)) {
             connecting.put(device.toString());
         }
         map.put("connecting", connecting);
 
+        int[] flagDisconnected = {0};
         JSONArray disconnected = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {0})) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagDisconnected)) {
             disconnected.put(device.toString());
         }
         map.put("disconnected", disconnected);
 
+        int[] flagDisconnecting = {3};
         JSONArray disconnecting = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {3})) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, flagDisconnecting)) {
             disconnecting.put(device.toString());
         }
         map.put("disconnecting", disconnected);
