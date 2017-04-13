@@ -159,7 +159,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         
         } else if (action.equals(GET_CONNECTED_DEVICES)) {
             
-            getConnectedDevices(callbackContext);
+            getConnectedDevices(callbackContext, bluetoothManager);
 
         } else if (action.equals(CONNECT)) {
 
@@ -525,9 +525,9 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         callbackContext.sendPluginResult(result);
     }
 
-    private void getConnectedDevices(CallbackContext callbackContext) {
+    private void getConnectedDevices(CallbackContext callbackContext, BluetoothManager bluetoothManager) {
         JSONArray json = new JSONArray();
-        List<BluetoothDevice> devices = BluetoothManager.getConnectedDevices(7);
+        List<BluetoothDevice> devices = bluetoothManager.getConnectedDevices(7);
         for (BluetoothDevice device : devices) {
             json.put(device.toString());
         }
