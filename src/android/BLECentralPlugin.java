@@ -530,30 +530,30 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         JSONObject map = new JSONObject();
 
         JSONArray connected = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, [2])) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {2})) {
             connected.put(device.toString());
         }
         map.put("connected", connected);
 
         JSONArray connecting = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, [1])) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {1})) {
             connecting.put(device.toString());
         }
         map.put("connecting", connecting);
 
         JSONArray disconnected = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, [0])) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {0})) {
             disconnected.put(device.toString());
         }
         map.put("disconnected", disconnected);
 
         JSONArray disconnecting = new JSONArray();
-        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, [3])) {
+        for (BluetoothDevice device : bluetoothManager.getDevicesMatchingConnectionStates(7, {3})) {
             disconnecting.put(device.toString());
         }
         map.put("disconnecting", disconnected);
 
-        PluginResult result = new PluginResult(PluginResult.Status.OK, map);
+        PluginResult result = new PluginResult(PluginResult.Status.OK, );
         callbackContext.sendPluginResult(result);
     }
 
