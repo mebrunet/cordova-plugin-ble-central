@@ -81,6 +81,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
 
     BluetoothAdapter bluetoothAdapter;
+    BluetoothManager bluetoothManager;
 
     // key is the MAC Address
     Map<String, Peripheral> peripherals = new LinkedHashMap<String, Peripheral>();
@@ -129,7 +130,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
               callbackContext.error("This hardware does not support Bluetooth Low Energy.");
               return false;
             }
-            BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
+            bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
             bluetoothAdapter = bluetoothManager.getAdapter();
         }
 
@@ -159,7 +160,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         
         } else if (action.equals(GET_CONNECTED_DEVICES)) {
             
-            getConnectedDevices(callbackContext, bluetoothManager);
+            getConnectedDevices(callbackContext);
 
         } else if (action.equals(CONNECT)) {
 
