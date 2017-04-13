@@ -557,7 +557,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         }
         map.put("disconnecting", disconnected);
 
-        PluginResult result = new PluginResult(PluginResult.Status.OK, );
+        PluginResult result = new PluginResult(PluginResult.Status.OK, map);
         callbackContext.sendPluginResult(result);
     }
 
