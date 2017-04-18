@@ -108,10 +108,20 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
     }};
 
     public void onDestroy() {
+        LOG.d(TAG, "running onDestroy()");
+        for (Map.Entry<String, Peripheral> entry : peripherals.entrySet()) {
+            LOG.d(TAG, "disconnecting: " + entry.getKey());
+            entry.getValue().disconnect();
+        }
         removeStateListener();
     }
 
     public void onReset() {
+        LOG.d(TAG, "running onReset()");
+        for (Map.Entry<String, Peripheral> entry : peripherals.entrySet()) {
+            LOG.d(TAG, "disconnecting: " + entry.getKey());
+            entry.getValue().disconnect();
+        }
         removeStateListener();
     }
 
