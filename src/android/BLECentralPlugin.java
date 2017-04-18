@@ -107,6 +107,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         put(BluetoothAdapter.STATE_TURNING_ON, "turningOn");
     }};
 
+    @Override
     public void onDestroy() {
         LOG.d(TAG, "running onDestroy()");
         for (Map.Entry<String, Peripheral> entry : peripherals.entrySet()) {
@@ -114,8 +115,10 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
             entry.getValue().disconnect();
         }
         removeStateListener();
+        super.onDestroy();
     }
 
+    @Override
     public void onReset() {
         LOG.d(TAG, "running onReset()");
         for (Map.Entry<String, Peripheral> entry : peripherals.entrySet()) {
@@ -123,6 +126,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
             entry.getValue().disconnect();
         }
         removeStateListener();
+        super.onReset();
     }
 
     @Override
